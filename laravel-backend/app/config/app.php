@@ -113,6 +113,7 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+		'Tappleby\AuthToken\AuthTokenServiceProvider',
 
 	),
 
@@ -178,7 +179,9 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-
+		'AuthToken' => 'Tappleby\Support\Facades\AuthToken',
+		'AuthTokenController' => 'Tappleby\Support\Facades\AuthTokenController',
+		'AuthTokenNotAuthorizedException' => 'Tappleby\AuthToken\Exceptions\NotAuthorizedException',
 	),
 
 );

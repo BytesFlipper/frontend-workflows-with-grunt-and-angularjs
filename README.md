@@ -1,3 +1,5 @@
+Trying to make laravel work with token authentication.
+
 # Frontend Workflows with Grunt and AngularJS
 
 http://www.youtube.com/watch?v=fSAgFxjFSqY
