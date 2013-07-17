@@ -1,22 +1,398 @@
-<div id="home" class="row">
-  <div class="large-6 large-offset-3">
-    <h2>Welcome to the {{ title }} page!</h2>
-
-    <div class="alert-box">{{ message }}</div>
-
-    <ul class="small-block-grid-2">
-      <li>
-        <img class="th" src="img/demo1.jpg" shows-message-when-hovered message="Im the first house.">
-      </li>
-      <li>
-        <img class="th" src="img/demo2.jpg" shows-message-when-hovered message="Im the second house.">
-      </li>
-    </ul>
-
+  <!-- Main hero unit for a primary marketing message or call to action -->
     <div class="row">
-      <div class="large-12 columns">
-        <button class="button large expand radius" ng-click="logout()">Log Out</button>
-      </div>
-    </div>
+  <div class="hero-unit">
+    <h1>Hello, world!</h1>
+    <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+    <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
   </div>
 </div>
+
+  <!-- Example row of columns -->
+  <div class="row">
+
+    <h2>Collapse</h2>
+
+    <div ng-controller="CollapseDemoCtrl">
+    <button class="btn" ng-click="isCollapsed = !isCollapsed">Toggle collapse</button>
+    <hr>
+    <div collapse="isCollapsed">
+    <div class="well well-large">Some content</div> 
+    </div>
+    </div>
+
+    <hr>
+
+    <h2>Accordion</h2>
+
+    <div ng-controller="AccordionDemoCtrl">
+    <label class="checkbox">
+    <input type="checkbox" ng-model="oneAtATime">
+    Open only one at a time
+    </label>
+
+    <accordion close-others="oneAtATime">
+    <accordion-group heading="Static Header">
+      This content is straight in the template.
+    </accordion-group>
+    <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+      {{group.content}}
+    </accordion-group>
+    <accordion-group heading="Dynamic Body Content">
+      <p>The body of the accordion group grows to fit the contents</p>
+        <button class="btn btn-small" ng-click="addItem()">Add Item</button>
+        <div ng-repeat="item in items">{{item}}</div>
+    </accordion-group>
+    </accordion>
+    </div>
+
+    <hr>
+
+    <h2>Alert</h2>
+
+    <div ng-controller="AlertDemoCtrl">
+      <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+      <button class='btn' ng-click="addAlert()">Add Alert</button>
+    </div>
+
+    <hr>
+
+    <h2>Buttons</h2>
+
+    <div ng-controller="ButtonsCtrl">
+    <h4>Single toggle</h4>
+    <pre>{{singleModel}}</pre>
+    <button type="button" class="btn btn-primary" ng-model="singleModel" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+        Single Toggle
+    </button>
+    <h4>Checkbox</h4>
+    <pre>{{checkModel}}</pre>
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary" ng-model="checkModel.left" btn-checkbox>Left</button>
+        <button type="button" class="btn btn-primary" ng-model="checkModel.middle" btn-checkbox>Middle</button>
+        <button type="button" class="btn btn-primary" ng-model="checkModel.right" btn-checkbox>Right</button>
+    </div>
+    <h4>Radio</h4>
+    <pre>{{radioModel}}</pre>
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary" ng-model="radioModel" btn-radio="'Left'">Left</button>
+        <button type="button" class="btn btn-primary" ng-model="radioModel" btn-radio="'Middle'">Middle</button>
+        <button type="button" class="btn btn-primary" ng-model="radioModel" btn-radio="'Right'">Right</button>
+    </div>
+    </div>
+
+    <hr>
+
+    <h2>Carousel</h2>
+
+    <div ng-controller="CarouselDemoCtrl">
+      <carousel interval="myInterval">
+        <slide ng-repeat="slide in slides" active="slide.active">
+          <img ng-src="{{slide.image}}" style="margin:auto;">
+          <div class="carousel-caption">
+            <h4>Slide {{$index}}</h4>
+            <p>{{slide.text}}</p>
+          </div>
+        </slide>
+      </carousel>
+      <div class="row-fluid">
+        <div class="span12">
+          <ul>
+            <li ng-repeat="slide in slides">
+              <button class="btn btn-mini" ng-class="{'btn-info': !slide.active, 'btn-success': slide.active}" ng-disabled="slide.active" ng-click="slide.active = true">select</button>
+              {{$index}}: {{slide.text}}
+            </li>
+          </ul>
+          <a class="btn" ng-click="addSlide()">Add Slide</a>
+        </div>
+        <div class="span6">
+          Interval, in milliseconds: <input type="number" ng-model="myInterval">
+          <br />Enter a negative number to stop the interval.
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <h2>Datepicker</h2>
+
+    <div ng-controller="DatepickerDemoCtrl">
+    <datepicker ng-model="dt" show-weeks="showWeeks" starting-day="1" date-disabled="disabled(date, mode)" min="minDate" max="'2015-06-22'"></datepicker>
+    <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
+
+    <button class="btn btn-small btn-inverse" ng-click="today()">Today</button>
+    <button class="btn btn-small btn-success" ng-click="toggleWeeks()">Toggle Weeks</button>
+    <button class="btn btn-small btn-danger" ng-click="clear()">Clear</button>
+    <button class="btn btn-small" ng-click="toggleMin()">After today restriction</button>
+    </div>
+
+    <hr>
+
+    <h2>Dialog</h2>
+
+    <div ng-controller="DialogDemoCtrl">
+    <div class="row-fluid">
+        <div class="span6">
+            <label class="checkbox"><input type=checkbox ng-model="opts.backdrop">Show backdrop</label>
+            <label class="checkbox"><input type=checkbox ng-model="opts.dialogFade">Fade modal dialog </label>
+            <label class="checkbox"><input type=checkbox ng-disabled="!opts.backdrop" ng-model="opts.backdropFade">Fade Backdrop</label>
+            <hr>
+            <label class="checkbox"><input type=checkbox ng-model="opts.keyboard">Close on Escape</label>
+            <label class="checkbox"><input type=checkbox ng-disabled="!opts.backdrop" ng-model="opts.backdropClick">Close on backdrop click</label>
+        </div>
+        <div class="span6">
+            <p>Change options at will and press the open dialog button below!</p>
+            <p><button class="btn btn-primary" ng-click="openDialog()">Open Dialog</button></p>
+
+            <p>Alternatively open a simple message box:</p>
+            <p><button class="btn btn-primary" ng-click="openMessageBox()">Open Message Box</button></p>
+        </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>Dropdown Toggle</h2>
+
+    <li class="dropdown" ng-controller="DropdownCtrl">
+      <a class="dropdown-toggle">
+        Click me for a dropdown, yo!
+      </a>
+      <ul class="dropdown-menu">
+        <li ng-repeat="choice in items">
+          <a>{{choice}}</a>
+        </li>
+      </ul>
+    </li>
+
+    <hr>
+
+    <h2>Modal</h2>
+
+    <div ng-controller="ModalDemoCtrl">
+    <button class="btn" ng-click="open()">Open me!</button>
+    <div modal="shouldBeOpen" close="close()" options="opts">
+        <div class="modal-header">
+            <h3>I'm a modal!</h3>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li ng-repeat="item in items">{{item}}</li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning cancel" ng-click="close()">Cancel</button>
+        </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>Pagination</h2>
+
+    <div ng-controller="PaginationDemoCtrl" class="well well-small">
+    <h4>Default</h4>
+
+    <pagination num-pages="noOfPages" current-page="currentPage"></pagination>
+    <pagination boundary-links="true" num-pages="noOfPages" current-page="currentPage" class="pagination-small" previous-text="'&lsaquo;'" next-text="'&rsaquo;'" first-text="'&laquo;'" last-text="'&raquo;'"></pagination>
+    <pagination direction-links="false" boundary-links="true" num-pages="noOfPages" current-page="currentPage"></pagination>
+    <pagination direction-links="false" num-pages="noOfPages" current-page="currentPage"></pagination>
+
+    <button class="btn" ng-click="setPage(3)">Set current page to: 3</button>
+    The selected page no: {{currentPage}}
+
+    <hr />
+    <h4>Pager</h4>
+    <pager num-pages="noOfPages" current-page="currentPage"></pager>
+
+    <hr />
+    <h4>Limit the maximimum visible page-buttons</h4>
+    <pagination num-pages="bigNoOfPages" current-page="bigCurrentPage" max-size="maxSize" class="pagination-mini" boundary-links="true"></pagination>
+    <pagination rotate="false" num-pages="bigNoOfPages" current-page="bigCurrentPage" max-size="maxSize" class="pagination-mini" boundary-links="true"></pagination>
+    </div>
+
+    <hr>
+
+    <h2>ToolTip</h2>
+
+    <div ng-controller="TooltipDemoCtrl">
+      <div class="well">
+        <div>Dynamic Tooltip Text: <input type="text" ng-model="dynamicTooltipText"></div>
+        <div>Dynamic Tooltip Popup Text: <input type="text" ng-model="dynamicTooltip"></div>
+        <p>
+          Pellentesque <a><span tooltip="{{dynamicTooltip}}">{{dynamicTooltipText}}</span></a>,
+          sit amet venenatis urna cursus eget nunc scelerisque viverra mauris, in
+          aliquam. Tincidunt lobortis feugiat vivamus at 
+          <a><span tooltip-placement="left" tooltip="On the Left!">left</span></a> eget
+          arcu dictum varius duis at consectetur lorem. Vitae elementum curabitur
+          <a><span tooltip-placement="right" tooltip="On the Right!">right</span></a> 
+          nunc sed velit dignissim sodales ut eu sem integer vitae. Turpis egestas 
+          <a><span tooltip-placement="bottom" tooltip="On the Bottom!">bottom</span></a> 
+          pharetra convallis posuere morbi leo urna, 
+          <a><span tooltip-placement="mouse" tooltip="relative to mouse">mouse</span></a> 
+          blah blah blah, 
+          <a><span tooltip-animation="false" tooltip="I don't fade. :-(">fading</span></a> 
+          at elementum eu, facilisis sed odio morbi quis commodo odio. In cursus
+          <a><span tooltip-popup-delay='1000' tooltip='appears with delay'>delayed</span></a> turpis massa tincidunt dui ut.
+        </p>
+
+        <p>
+          I can even contain HTML. <a><span tooltip-html-unsafe="{{htmlTooltip}}">Check me out!</span></a>
+        </p>
+        <p>
+          Or use custom triggers, like focus: 
+          <input type="text" value="Click me!"
+            tooltip="See? Now click away..." 
+            tooltip-trigger="focus"
+            tooltip-placement="right" />
+        </p>
+      </div>
+    </div>
+
+    <hr>
+
+    <h2>Popover</h2>
+
+    <div ng-controller="PopoverDemoCtrl">
+  <div class="well">
+    <div>
+      <h4>Dynamic</h4>
+      <div>Dynamic Popover : <input type="text" ng-model="dynamicPopoverText"></div>
+      <div>Dynamic Popover Popup Text: <input type="text" ng-model="dynamicPopover"></div>
+      <div>Dynamic Popover Popup Title: <input type="text" ng-model="dynamicPopoverTitle"></div>
+      <div><button popover="{{dynamicPopover}}" popover-title="{{dynamicPopoverTitle}}" class="btn">{{dynamicPopoverText}}</button></div>
+    </div>
+    <div>
+      <h4>Positional</h4>
+      <button popover-placement="top" popover="On the Top!" class="btn">Top</button>
+      <button popover-placement="left" popover="On the Left!" class="btn">Left</button>
+      <button popover-placement="right" popover="On the Right!" class="btn">Right</button>
+      <button popover-placement="bottom" popover="On the Bottom!" class="btn">Bottom</button>
+      <button popover-placement="mouse" popover="relative to mouse" class="btn">Mouse</button>
+    </div>
+    <div>
+      <h4>Triggers</h4>
+      <button popover="I appeared on mouse enter!" popover-trigger="mouseenter" class="btn">Mouseenter</button>
+      <input type="text" value="Click me!" 
+        popover="I appeared on focus! Click away and I'll vanish..." 
+        popover-trigger="focus" />
+    </div>
+    <div>
+      <h4>Other</h4>
+      <button Popover-animation="true" popover="I fade in and out!" class="btn">fading</button>
+      <button popover="I have a title!" popover-title="The title." class="btn">title</button>
+    </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <h2>Progress Bar</h2>
+
+  <div ng-controller="ProgressDemoCtrl" class="well">
+    <h2>Static</h2>
+    <div class="row-fluid">
+        <div class="span4"><progress percent="55"></progress></div>
+        <div class="span4"><progress percent="22" class="progress-warning progress-striped"></progress></div>
+        <div class="span4"><progress percent="88" class="progress-danger progress-striped active"></div>
+    </div>
+    
+    <h2>Dynamic <button class="btn btn-primary" type="button" ng-click="random()">Randomize</button></h2>
+    <pre>Value: {{dynamic}}</pre>
+    <progress percent="dynamic"></progress>
+    
+    <small><em>No animation</em></small>
+    <progress percent="dynamic" class="progress-success" animate="false"></progress>
+
+    <small><em>Object (changes type based on value)</em></small>
+    <progress percent="dynamicObject" class="progress-striped active"></progress>
+    
+    <h2>Stacked <button class="btn btn-primary" type="button" ng-click="randomStacked()">Randomize</button></h2>
+    <small><em>Array values with automatic types</em></small>
+    <pre>Value: {{stackedArray}}</pre>
+    <progress percent="stackedArray" auto-type="true"></progress>
+    
+    <small><em>Objects</em></small>
+    <pre>Value: {{stacked}}</pre>
+    <progress percent="stacked"></progress>
+  </div>
+
+  <hr>
+
+  <h2>Rating</h2>
+
+  <div ng-controller="RatingDemoCtrl">
+    <rating value="rate" max="10" readonly="isReadonly"></rating>
+
+    <hr/>
+    <pre>Rate: <b>{{rate}}</b>  - Readonly is: <i>{{isReadonly}}</i></pre>
+
+    <hr/>
+    <button class="btn btn-small btn-danger" ng-click="rate = 0" ng-disabled="isReadonly">Clear</button>
+    <button class="btn btn-small" ng-click="isReadonly = ! isReadonly">Toggle Readonly</button>
+</div>
+
+<h2>Tabs</h2>
+
+<div ng-controller="TabsDemoCtrl">
+  Select a tab by setting active binding to true:
+  <br />
+  <button class="btn btn-small" ng-click="tabs[0].active = true">Select second tab</button>
+  <button class="btn btn-small" ng-click="tabs[1].active = true">Select third tab</button>
+  <button class="btn btn-small" ng-click="tabs[1].disabled = ! tabs[1].disabled">Enable / Disable third tab</button>
+  <hr />
+
+  <tabset>
+    <tab heading="Static title">Static content</tab>
+    <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
+      {{tab.content}}
+    </tab>
+    <tab select="alertMe()">
+      <tab-heading>
+        <i class="icon-bell"></i> Select me for alert!
+      </tab-heading>
+      I've got an HTML heading, and a select callback. Pretty cool!
+    </tab>
+  </tabset>
+
+  <hr />
+
+    <tabset vertical="true" type="navType">
+      <tab heading="Vertical 1">Vertical content 1</tab>
+      <tab heading="Vertical 2">Vertical content 2</tab>
+    </tabset>
+  </div>
+
+  <hr>
+
+
+    <h2>Timepicker</h2>
+
+    <div ng-controller="TimepickerDemoCtrl">
+      <timepicker ng-model="mytime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+
+      <pre>Time is: {{mytime | date:'shortTime' }}</pre>
+
+      <div>Hours step is: <select ng-model="hstep" ng-options="opt for opt in options.hstep"></select></div>
+      <div>Minutes step is: <select ng-model="mstep" ng-options="opt for opt in options.mstep"></select></div>
+
+      <button class="btn" ng-click="toggleMode()">12H / 24H</button>
+      <button class="btn" ng-click="update()">Set to 14:00</button>
+      <button class="btn btn-danger" ng-click="clear()">Clear</button>
+    </div>
+
+    <hr>
+
+    <h2>Typeahead</h2>
+
+    <div class='container-fluid' ng-controller="TypeaheadCtrl">
+    <pre>Model: {{selected| json}}</pre>
+    <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue">
+    </div>
+
+
+  </div>
+
+  <hr>
+
+
+

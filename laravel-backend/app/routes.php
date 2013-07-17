@@ -29,3 +29,7 @@ Route::post('/auth/login', array('before' => 'csrf_json', 'uses' => 'AuthControl
 Route::get('/auth/logout', 'AuthController@logout');
 Route::get('/auth/status', 'AuthController@status');
 Route::get('/auth/secrets','AuthController@secrets');
+
+Route::get('/', function(){
+	return "Welcome to API!";
+});

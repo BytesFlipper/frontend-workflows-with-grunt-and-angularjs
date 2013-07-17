@@ -1,5 +1,5 @@
 angular.module("app").run(function($rootScope, $location, AuthenticationService, FlashService) {
-  var routesThatRequireAuth = ['/home'];
+  var routesThatRequireAuth = [];
 
   $rootScope.$on('$routeChangeStart', function(event, next, current) {
     if(_(routesThatRequireAuth).contains($location.path()) && !AuthenticationService.isLoggedIn()) {
